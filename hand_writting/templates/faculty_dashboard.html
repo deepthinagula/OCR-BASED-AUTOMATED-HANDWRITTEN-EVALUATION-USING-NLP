@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+    <style>
+        /* General styling */
+        body {
+            
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #ffffff;
+            color: #fffbfb;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/024/162/232/non_2x/auditor-checking-office-documents-plan-review-process-and-assess-correctness-management-of-important-document-storage-of-organization-erp-document-system-accountant-audit-documents-free-photo.jpg");
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents repeating the image */
+            background-attachment: fixed;
+        }
+        
+        /* Container for the dashboard */
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: #a8daee1b;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 1.8em;
+            color: #ffffff;
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-top: 1em;
+            color: #ffffff;
+        }
+
+        select, input[type="file"], button {
+            width: 100%;
+            padding: 0.8em;
+            margin-top: 0.5em;
+            font-size: 1em;
+            color: #000000;
+            border: 1px solid #0f0e0e;
+            border-radius: 4px;
+        }
+
+        select, input[type="file"] {
+            background: #9c9fa47a;
+        }
+
+        button {
+            background-color: #55ccff92;
+            color: #000000;
+            font-size: medium;
+            font-weight: 700;
+            border: 1px solid #0f0e0e;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3e9bb7;
+        }
+
+        .score-section {
+            margin-top: 2em;
+            padding: 1em;
+            border-radius: 4px;
+            background: #9c9fa469;
+            color: #000000;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            .container {
+                padding: 1em;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Faculty Dashboard</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="question_id">Question ID:</label>
+            <select name="question_id" id="question_id" required>
+                {% for question in questions %}
+                <option value="{{ question[0] }}">{{ question[0] }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="subject">Subject:</label>
+            <select name="subject" id="subject" required>
+                {% for question in questions %}
+                <option value="{{ question[1] }}">{{ question[1] }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="image">Upload Image:</label>
+            <input type="file" name="image" id="image" accept="image/*" required>
+            
+            <button type="submit">Upload</button>
+        </form>
+        
+        {% if score %}
+        <div class="score-section">
+            <h3>Score: {{ score }} / 10</h3>
+            <p>Extracted Text:</p>
+            <p>{{ extracted_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
